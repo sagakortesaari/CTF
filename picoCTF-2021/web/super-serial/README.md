@@ -74,14 +74,14 @@ require_once("cookie.php");
 
 The fact that the code is utilizing the function `unserialize` in `cookie.phps` is veeery dangerous, and I guess this is going to be the attack vector. If we set the cookie ```login``` to a base64 encoded serialized ```access_log``` class, the ```$g = $perm->is_guest();``` row will throw an error because no such function exists. The ```$perm``` object will get printed out due to the following code:
 
-from cookie.phps:
+from `cookie.phps`:
 ```
 catch(Error $e){
 	die("Deserialization error. ".$perm);
 }
 ```
 
-from authentication.phps:
+from `authentication.phps`:
 ```
 function __toString() {
     return $this->read_log();
